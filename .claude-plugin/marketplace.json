@@ -7,7 +7,7 @@
       "name": "htmemo",
       "source": "./",
       "description": "Add the HTMemo review toolbar to a page and apply the change requests you copy from it.",
-      "version": "0.1.1",
+      "version": "1.0.0",
       "homepage": "https://github.com/kkjjjy1b/htmemo",
       "license": "MIT",
       "keywords": ["review", "annotation", "design-review"]

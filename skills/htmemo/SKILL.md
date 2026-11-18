@@ -12,7 +12,7 @@ HTMemo is a single-file review toolbar (https://github.com/kkjjjy1b/htmemo). Rev
 Insert this line right before `</body>` of the HTML page the user names. If no page is named, look for the main HTML entry (`index.html`, a framework's root layout) and ask only if there are several candidates.
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.1/htmemo.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.0/htmemo.js" defer></script>
 ```
 
 - For offline use, or when the user prefers no external script, copy `${CLAUDE_PLUGIN_ROOT}/htmemo.js` next to the page and use `<script src="htmemo.js" defer></script>` instead.

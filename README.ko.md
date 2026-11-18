@@ -28,7 +28,7 @@ Claude Code에서 아래 명령 두 줄을 실행합니다.
 1. **도구 붙이기.** 프로젝트에서 Claude에게 `index.html에 HTMemo 붙여 줘`처럼 말합니다. Claude가 `</body>` 바로 앞에 script 한 줄을 넣습니다.
 
    ```html
-   <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.1/htmemo.js" defer></script>
+   <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.0/htmemo.js" defer></script>
    ```
 
 2. **브라우저에서 리뷰하기.** 페이지를 열고 `C`(코멘트), `R`(영역 댓글), `E`(글자 수정), `T`(스타일)로 메모를 남깁니다.
@@ -80,7 +80,7 @@ Claude Code에서 아래 명령 두 줄을 실행합니다.
 설정이 필요하면 `HTMemo 붙일 때 모바일 하단 고정 바가 76px이야`처럼 Claude에게 말하면 됩니다. 설정값은 script 태그의 `data-*` 속성으로 들어갑니다.
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.1/htmemo.js"
+<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.0/htmemo.js"
         data-lang="ko" data-mobile-bottom="76" data-container=".container" defer></script>
 ```
 
