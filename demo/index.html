@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTMemo demo — Larkspur Notes (sample page)</title>
+<meta name="description" content="A sample landing page for trying HTMemo, a review memo tool for web pages.">
+<link rel="icon" href="../assets/htmemo-logo.svg" type="image/svg+xml">
+<style>
+  :root {
+    --ink: #1c1f24;
+    --ink-soft: #4b5260;
+    --muted: #7a8190;
+    --brand: #0f766e;
+    --brand-soft: #e6f4f2;
+    --accent: #f59e0b;
+    --paper: #ffffff;
+    --paper-alt: #f6f7f9;
+    --line: #e3e6ea;
+    --grid-gap: 24px;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink); background: var(--paper); }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .demo-note { background: var(--ink); color: #fff; font-size: 14px; }
+  .demo-note .container { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; justify-content: space-between; padding-block: 10px; }
+  .demo-note kbd { font: 600 12px/1 system-ui; padding: 2px 5px; border: 1px solid #6b7280; border-radius: 4px; }
+  .demo-note a { color: #ffc83d; font-weight: 700; }
+
+  .site-header { border-bottom: 1px solid var(--line); }
+  .site-header .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { font-weight: 800; font-size: 18px; letter-spacing: -.01em; text-decoration: none; }
+  .logo span { color: var(--brand); }
+  .nav { display: flex; gap: 24px; font-size: 15px; }
+  .nav a { text-decoration: none; color: var(--ink-soft); }
+  @media (max-width: 640px) { .nav { display: none; } }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: var(--brand); color: #fff; font-weight: 700; text-decoration: none; border: 0; font-size: 15px; cursor: pointer; }
+  .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+
+  .hero { padding: 88px 0 72px; background: linear-gradient(180deg, var(--brand-soft), var(--paper)); }
+  .hero .container { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+  .eyebrow { display: inline-block; font-size: 13px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: .08em; }
+  .hero h1 { font-size: clamp(36px, 5vw, 56px); line-height: 1.1; margin: 12px 0 16px; letter-spacing: -.02em; text-wrap: balance; }
+  .hero p { font-size: 18px; color: var(--ink-soft); margin: 0 0 28px; max-width: 34em; }
+  .hero__cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero__art { aspect-ratio: 4 / 3; border-radius: var(--radius); background: var(--paper); box-shadow: 0 20px 50px rgba(15,118,110,.15); padding: 20px; display: grid; gap: 10px; align-content: start; }
+  .hero__art i { display: block; height: 14px; border-radius: 7px; background: var(--line); }
+  .hero__art i:nth-child(1) { width: 60%; background: var(--brand); }
+  .hero__art i:nth-child(3) { width: 80%; }
+  .hero__art i:nth-child(4) { width: 45%; background: var(--accent); }
+  @media (max-width: 860px) { .hero .container { grid-template-columns: 1fr; } .hero { padding: 56px 0; } }
+
+  section { padding: 80px 0; }
+  .section-title { font-size: clamp(28px, 3.5vw, 38px); line-height: 1.2; margin: 8px 0 12px; letter-spacing: -.01em; }
+  .section-lead { color: var(--ink-soft); margin: 0 0 40px; max-width: 40em; }
+
+  .features__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+  .card h3 { margin: 12px 0 8px; font-size: 20px; }
+  .card p { margin: 0; color: var(--ink-soft); }
+  .card__icon { width: 40px; height: 40px; border-radius: 10px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; font-weight: 800; }
+  @media (max-width: 860px) { .features__grid { grid-template-columns: 1fr; } }
+
+  .pricing { background: var(--paper-alt); }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--grid-gap); }
+  .plan { background: var(--paper); border-radius: var(--radius); padding: 32px 28px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; }
+  .plan--best { border: 2px solid var(--brand); }
+  .plan__name { font-weight: 700; color: var(--ink-soft); margin: 0; }
+  .plan__price { font-size: 40px; font-weight: 800; margin: 0; letter-spacing: -.02em; }
+  .plan__price small { font-size: 15px; font-weight: 600; color: var(--muted); }
+  .plan ul { margin: 0 0 8px; padding-left: 18px; color: var(--ink-soft); }
+  .plan .btn { margin-top: auto; }
+  .badge { align-self: start; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--accent); color: var(--ink); }
+  @media (max-width: 860px) { .plans { grid-template-columns: 1fr; } }
+
+  .faq dl { margin: 0; display: grid; gap: 20px; max-width: 760px; }
+  .faq dt { font-weight: 700; }
+  .faq dd { margin: 4px 0 0; color: var(--ink-soft); }
+
+  .site-footer { border-top: 1px solid var(--line); padding: 32px 0 120px; color: var(--muted); font-size: 14px; }
+  .site-footer .container { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+</style>
+</head>
+<body>
+  <div class="demo-note">
+    <div class="container">
+      <p style="margin:0">HTMemo demo: press <kbd>C</kbd> to comment, <kbd>R</kbd> region, <kbd>E</kbd> edit text, <kbd>T</kbd> style, then <b>Copy prompt</b>. This page and its product are fictional.</p>
+      <a href="https://github.com/kkjjjy1b/htmemo">GitHub ↗</a>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="#">Larkspur <span>Notes</span></a>
+      <nav class="nav" aria-label="Main">
+        <a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn" href="#pricing">Start free</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top" data-htmemo-section="Hero">
+      <div class="container">
+        <div>
+          <span class="eyebrow">Team notes, simplified</span>
+          <h1>Write it down once. Find it forever.</h1>
+          <p>Larkspur Notes keeps meeting notes, decisions and checklists in one searchable place, so your team stops asking the same questions twice.</p>
+          <div class="hero__cta">
+            <a class="btn" href="#pricing">Try it free for 14 days</a>
+            <a class="btn btn--ghost" href="#features">See how it works</a>
+          </div>
+        </div>
+        <div class="hero__art" role="img" aria-label="Product preview"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <span class="eyebrow">Features</span>
+        <h2 class="section-title">Everything your team writes, connected</h2>
+        <p class="section-lead">Three simple tools that work together instead of three apps that don't.</p>
+        <div class="features__grid">
+          <article class="card"><span class="card__icon">01</span><h3>Instant search</h3><p>Type a word and get every note, task and file that mentions it in under a second.</p></article>
+          <article class="card"><span class="card__icon">02</span><h3>Decision log</h3><p>Mark any line as a decision and it shows up in a timeline everyone can follow.</p></article>
+          <article class="card"><span class="card__icon">03</span><h3>Shared checklists</h3><p>Turn notes into checklists with owners and due dates, without leaving the page.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <span class="eyebrow">Pricing</span>
+        <h2 class="section-title">Simple plans for every team size</h2>
+        <p class="section-lead">Every plan includes unlimited notes. Cancel anytime.</p>
+        <div class="plans">
+          <div class="plan"><p class="plan__name">Starter</p><p class="plan__price">$0 <small>/ month</small></p><ul><li>Up to 3 members</li><li>Instant search</li></ul><a class="btn btn--ghost" href="#">Get started</a></div>
+          <div class="plan plan--best"><span class="badge">Most popular</span><p class="plan__name">Team</p><p class="plan__price">$8 <small>/ member / month</small></p><ul><li>Unlimited members</li><li>Decision log</li><li>Shared checklists</li></ul><a class="btn" href="#">Start free trial</a></div>
+          <div class="plan"><p class="plan__name">Business</p><p class="plan__price">$15 <small>/ member / month</small></p><ul><li>Everything in Team</li><li>SSO and audit log</li></ul><a class="btn btn--ghost" href="#">Contact sales</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="container">
+        <span class="eyebrow">FAQ</span>
+        <h2 class="section-title">Questions, answered</h2>
+        <dl>
+          <div><dt>Can I import my existing notes?</dt><dd>Yes. Markdown, plain text and most note apps can be imported in a few clicks.</dd></div>
+          <div><dt>Is there a mobile app?</dt><dd>The web app works on any phone browser. Native apps are on the roadmap.</dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>© Larkspur Notes (fictional company for the HTMemo demo)</span>
+      <span>Made to be reviewed with HTMemo</span>
+    </div>
+  </footer>
+
+  <script src="../htmemo.js" defer></script>
+</body>
+</html>

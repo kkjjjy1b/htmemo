@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 24" width="20" height="24" role="img" aria-label="HTMemo">
+  <!-- folded sticky note -->
+  <path d="M0 0H14L20 6V24H0Z" fill="#FFC83D"/>
+  <path d="M14 0V6H20Z" fill="#C9971C"/>
+  <!-- HTML tag mark &lt;/&gt; -->
+  <g fill="none" stroke="#1A1A1A" stroke-width="1.8" stroke-linecap="square">
+    <path d="M6.5 10.5L4 13.5L6.5 16.5"/>
+    <path d="M11 9.5L9 17.5"/>
+    <path d="M13.5 10.5L16 13.5L13.5 16.5"/>
+  </g>
+</svg>
