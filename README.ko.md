@@ -4,72 +4,39 @@
 
 # HTMemo
 
-웹 페이지 위에 리뷰 메모를 바로 남기고, 그 메모를 프롬프트 한 덩어리로 복사해 Claude, ChatGPT 같은 AI 코딩 도구에 붙여 넣는 도구입니다.
+웹 페이지를 리뷰하는 Claude Code 플러그인입니다. 페이지 위에 메모를 바로 남기고, 메모 전체를 프롬프트 하나로 복사해 Claude에 붙여 넣으면 Claude가 수정합니다.
 
-HTMemo는 의존성도 서버도 없는 자바스크립트 파일 하나입니다. 요소를 클릭해 코멘트를 남기거나, 드래그로 영역을 잡거나, 글자를 그 자리에서 고치거나, 글자 크기·여백·색을 슬라이더로 바꿔 볼 수 있습니다. 남긴 메모는 페이지 섹션별로 묶여 마크다운 프롬프트로 복사됩니다. 프롬프트에는 요소마다 CSS 선택자, 적용할 화면 폭, 바꿀 값이 들어갑니다.
+브라우저에서 페이지 위에 뜨는 도구 막대는 의존성도 서버도 없는 자바스크립트 파일 하나입니다. 요소를 클릭해 코멘트를 남기거나 드래그로 영역을 잡을 수 있고, 글자를 그 자리에서 고치거나 글자 크기·여백·색을 슬라이더로 바꿔 볼 수도 있습니다. 남긴 메모는 페이지 섹션별로 묶여 마크다운 프롬프트로 복사됩니다. 프롬프트에는 요소마다 CSS 선택자, 적용할 화면 폭, 바꿀 값이 들어갑니다.
 
 **[데모 열기 →](https://kkjjjy1b.github.io/htmemo/demo/)**
 
 ![예시 페이지 위의 HTMemo 막대](assets/screenshot.png)
 
-## 설치
+## 설치 (Claude Code 플러그인)
 
-### 1. CDN 한 줄
-
-리뷰할 페이지의 `</body>` 바로 앞에 아래 한 줄을 넣습니다.
-
-```html
-<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.0/htmemo.js" defer></script>
-```
-
-페이지를 출시하기 전에는 이 줄을 지웁니다. HTMemo는 리뷰용 도구라서 방문자에게 보이면 안 됩니다.
-
-### 2. 파일 내려받기
-
-[`htmemo.js`](https://github.com/kkjjjy1b/htmemo/releases/download/v0.1.0/htmemo.js)를 내려받거나 이 저장소에서 복사해 페이지 옆에 두고 불러옵니다.
-
-```html
-<script src="htmemo.js" defer></script>
-```
-
-`file://`로 연 로컬 파일에서도 동작합니다.
-
-### 3. 북마클릿 (코드 수정 없이 어느 페이지에서나)
-
-북마크를 하나 만들고 URL 칸에 아래 내용을 붙여 넣습니다. 북마크를 누르면 보고 있는 페이지에서 HTMemo가 켜집니다.
+Claude Code에서 아래 명령 두 줄을 실행합니다.
 
 ```text
-javascript:(()=>{if(window.__htmemo)return;var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@0/htmemo.js';document.body.appendChild(s)})()
+/plugin marketplace add kkjjjy1b/htmemo
+/plugin install htmemo
 ```
 
-> 콘텐츠 보안 정책(CSP)이 엄격한 사이트는 다른 도메인의 스크립트를 막기 때문에 북마클릿이 동작하지 않을 수 있습니다. 직접 만드는 페이지라면 script 태그 방식을 쓰세요.
+등록한 다른 마켓플레이스에도 이름이 `htmemo`인 플러그인이 있으면 `/plugin install htmemo@htmemo`로 설치합니다. Claude Code가 다시 시작하라고 하면 다시 시작합니다. 나중에 업데이트하려면 `/plugin marketplace update htmemo`를 실행합니다.
 
-## Claude Code에서 쓰기
+## 사용법
 
-HTMemo는 "브라우저에서 리뷰하고 → AI가 고치는" 흐름에 맞춰 만들었습니다.
+1. **도구 붙이기.** 프로젝트에서 Claude에게 `index.html에 HTMemo 붙여 줘`처럼 말합니다. Claude가 `</body>` 바로 앞에 script 한 줄을 넣습니다.
 
-**Claude에게 설치 맡기기.** 프로젝트에서 Claude Code에 아래 문장을 붙여 넣습니다.
+   ```html
+   <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.1/htmemo.js" defer></script>
+   ```
 
-```text
-<페이지 경로.html>에 HTMemo 리뷰 도구를 붙여 줘. </body> 바로 앞에
-<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.0/htmemo.js" defer></script>
-를 넣으면 돼. 리뷰용이니까 출시 전에 지워야 한다고 알려 줘.
-```
+2. **브라우저에서 리뷰하기.** 페이지를 열고 `C`(코멘트), `R`(영역 댓글), `E`(글자 수정), `T`(스타일)로 메모를 남깁니다.
+3. **Prompt 복사.** **Prompt 복사**를 누르고 Claude Code 대화창에 붙여 넣습니다. Claude가 선택자로 요소를 찾아 수정하고, "데스크톱만"·"모바일만" 항목은 미디어 쿼리로 해당 화면 폭에만 반영합니다.
+4. **반복하기.** 페이지를 새로 고치고, 반영된 항목은 목록에서 **완료**로 표시한 뒤 다시 리뷰합니다.
+5. **출시 전에 떼기.** Claude에게 `HTMemo 떼 줘`라고 말합니다. 리뷰용 도구라서 방문자에게 보이면 안 됩니다.
 
-**리뷰하고 수정 요청 보내기.**
-
-1. 브라우저에서 페이지를 열고 메모를 남깁니다(C, R, E, T).
-2. **Prompt 복사**를 누릅니다.
-3. Claude Code 대화창에 붙여 넣습니다. Claude가 선택자로 요소를 찾아 수정하고, "데스크톱만"·"모바일만" 항목은 미디어 쿼리로 해당 화면 폭에만 반영합니다.
-4. 페이지를 새로 고치고, 반영된 항목은 목록에서 **완료**로 표시한 뒤 다시 리뷰합니다.
-
-**선택: HTMemo 스킬 추가.** 스킬을 넣으면 Claude Code가 도구를 붙이고 떼는 법과 HTMemo 프롬프트를 정확히 반영하는 법(글자 그대로 바꾸기, `var(--이름)` 색 쓰기, 미디어 쿼리로 범위 정하기)을 알게 됩니다. 아래 명령을 한 번 실행하면 모든 프로젝트에서 쓸 수 있습니다.
-
-```bash
-mkdir -p ~/.claude/skills/htmemo && curl -fsSL https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.0/claude/skills/htmemo/SKILL.md -o ~/.claude/skills/htmemo/SKILL.md
-```
-
-설치한 뒤 Claude Code를 다시 시작합니다. 한 프로젝트에서만 쓰려면 그 프로젝트의 `.claude/skills/htmemo/SKILL.md`에 파일을 둡니다. 복사한 프롬프트는 Claude.ai, ChatGPT, Cursor 같은 다른 도구에도 그대로 붙여 넣어 쓸 수 있습니다.
+복사한 프롬프트는 일반 마크다운이라 Claude.ai에 붙여 넣어도 쓸 수 있습니다.
 
 ## 기능과 단축키
 
@@ -110,10 +77,10 @@ mkdir -p ~/.claude/skills/htmemo && curl -fsSL https://cdn.jsdelivr.net/gh/kkjjj
 
 ## 설정
 
-script 태그에 `data-*` 속성으로 설정합니다.
+설정이 필요하면 `HTMemo 붙일 때 모바일 하단 고정 바가 76px이야`처럼 Claude에게 말하면 됩니다. 설정값은 script 태그의 `data-*` 속성으로 들어갑니다.
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.0/htmemo.js"
+<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.1/htmemo.js"
         data-lang="ko" data-mobile-bottom="76" data-container=".container" defer></script>
 ```
 
@@ -153,9 +120,6 @@ script 태그에 `data-*` 속성으로 설정합니다.
 
 ## 로드맵
 
-- npm 패키지
-- Chrome 확장 프로그램(CSP가 엄격한 사이트에서도 동작)
-- Claude Code 플러그인
 - 메모를 로컬 파일로 저장
 
 ## 개발

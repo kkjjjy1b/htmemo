@@ -1,0 +1,16 @@
+{
+  "name": "htmemo",
+  "owner": { "name": "kkjjjy1b" },
+  "metadata": { "description": "HTMemo: on-page review memos for web pages, copied as an AI-ready prompt." },
+  "plugins": [
+    {
+      "name": "htmemo",
+      "source": "./",
+      "description": "Add the HTMemo review toolbar to a page and apply the change requests you copy from it.",
+      "version": "0.1.1",
+      "homepage": "https://github.com/kkjjjy1b/htmemo",
+      "license": "MIT",
+      "keywords": ["review", "annotation", "design-review"]
+    }
+  ]
+}

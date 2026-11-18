@@ -4,72 +4,39 @@
 
 # HTMemo
 
-Leave review memos directly on a web page, then copy them as one prompt you can paste into Claude, ChatGPT or any AI coding tool.
+A Claude Code plugin for reviewing web pages. Leave memos directly on the page, copy them as one prompt, and paste it back into Claude to apply the changes.
 
-HTMemo is a single JavaScript file with no dependencies and no server. Click an element to comment, drag to mark an area, edit text in place, or tweak font size, spacing and colors with sliders. HTMemo groups everything by page section and copies a Markdown prompt that includes each element's CSS selector, the screen width it applies to, and the exact values to change.
+The toolbar that appears on the page is a single JavaScript file with no dependencies and no server. Click an element to comment, drag to mark an area, edit text in place, or tweak font size, spacing and colors with sliders. HTMemo groups everything by page section and copies a Markdown prompt that includes each element's CSS selector, the screen width it applies to, and the exact values to change.
 
 **[Try the demo →](https://kkjjjy1b.github.io/htmemo/demo/)**
 
 ![HTMemo toolbar on a sample page](assets/screenshot.png)
 
-## Install
+## Install (Claude Code plugin)
 
-### 1. One line from a CDN
-
-Add this line before `</body>` of the page you want to review:
-
-```html
-<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.0/htmemo.js" defer></script>
-```
-
-Remove the line before you ship the page. HTMemo is a review tool, not something visitors should see.
-
-### 2. Download the file
-
-Download [`htmemo.js`](https://github.com/kkjjjy1b/htmemo/releases/download/v0.1.0/htmemo.js) (or copy it from this repository), put it next to your page, and load it:
-
-```html
-<script src="htmemo.js" defer></script>
-```
-
-This works for local files opened with `file://` too.
-
-### 3. Bookmarklet (any page, no code change)
-
-Create a bookmark and paste this as its URL. Clicking it turns HTMemo on for the page you are viewing.
+Run these two commands in Claude Code:
 
 ```text
-javascript:(()=>{if(window.__htmemo)return;var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@0/htmemo.js';document.body.appendChild(s)})()
+/plugin marketplace add kkjjjy1b/htmemo
+/plugin install htmemo
 ```
 
-> Sites with a strict Content Security Policy (CSP) block scripts from other domains, so the bookmarklet may do nothing there. Use the script tag on your own pages instead.
+If another marketplace you added also has a plugin named `htmemo`, use `/plugin install htmemo@htmemo` instead. Restart Claude Code if it asks you to. To update later, run `/plugin marketplace update htmemo`.
 
-## Use with Claude Code
+## Use
 
-HTMemo was built for a loop of "review in the browser → let the AI fix it".
+1. **Add the toolbar.** Ask Claude in your project, for example: `Add HTMemo to index.html`. Claude inserts one script line before `</body>`:
 
-**Install it with Claude.** Paste this into Claude Code in your project:
+   ```html
+   <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.1/htmemo.js" defer></script>
+   ```
 
-```text
-Add the HTMemo review toolbar to <path/to/page.html>: insert
-<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.0/htmemo.js" defer></script>
-right before </body>. It's for review only, so remind me to remove it before release.
-```
+2. **Review in the browser.** Open the page and leave memos with `C` (comment), `R` (region), `E` (edit text) and `T` (style).
+3. **Copy prompt.** Press **Copy prompt** and paste it into Claude Code. Claude finds each element by its selector and applies the changes, scoping "Desktop only" / "Mobile only" items with media queries.
+4. **Repeat.** Reload the page, mark finished items as **Done** in the list, and review again.
+5. **Remove before release.** Ask Claude: `Remove HTMemo`. The toolbar is for review only and should not ship to visitors.
 
-**Review and send the changes back.**
-
-1. Open the page in your browser and leave memos (C, R, E, T).
-2. Press **Copy prompt**.
-3. Paste it into Claude Code. Claude finds each element by its selector and applies the changes, scoping "Desktop only" / "Mobile only" items with media queries.
-4. Reload the page, mark finished items as **Done** in the list, and repeat.
-
-**Optional: add the HTMemo skill.** The skill teaches Claude Code how to add or remove the toolbar and how to apply an HTMemo prompt precisely (exact text replacements, `var(--name)` colors, media-query scoping). Install it once for all projects:
-
-```bash
-mkdir -p ~/.claude/skills/htmemo && curl -fsSL https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.0/claude/skills/htmemo/SKILL.md -o ~/.claude/skills/htmemo/SKILL.md
-```
-
-Restart Claude Code after installing. To use it in one project only, put the file in `.claude/skills/htmemo/SKILL.md` inside that project instead. The copied prompt also works as-is in Claude.ai, ChatGPT, Cursor and other tools.
+The copied prompt is plain Markdown, so it also works if you paste it into Claude.ai.
 
 ## Features and shortcuts
 
@@ -110,10 +77,10 @@ Paths (`…`) are CSS selectors. If "Applies to" is not "All screens", change on
 
 ## Options
 
-Set options as `data-*` attributes on the script tag:
+Ask Claude to add options when you need them, for example `HTMemo: the page has a 76px fixed bottom bar on mobile`. Options are `data-*` attributes on the script tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.0/htmemo.js"
+<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.1/htmemo.js"
         data-lang="en" data-mobile-bottom="76" data-container=".container" defer></script>
 ```
 
@@ -153,9 +120,6 @@ After loading, `window.HTMemo` has `version`, `lang`, `getPrompt()`, `getItems()
 
 ## Roadmap
 
-- npm package
-- Chrome extension (works on CSP-strict sites)
-- Claude Code plugin
 - Saving memos to a local file
 
 ## Development

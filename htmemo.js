@@ -1,7 +1,7 @@
-/*! HTMemo v0.1.0 — leave review memos on any web page and copy them as an AI-ready prompt.
+/*! HTMemo v0.1.1 — leave review memos on any web page and copy them as an AI-ready prompt.
  *  https://github.com/kkjjjy1b/htmemo · MIT License
  *
- *  Install:  <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.0/htmemo.js" defer></script>
+ *  Install:  <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v0.1.1/htmemo.js" defer></script>
  *
  *  Modes (shortcut)
  *  - Comment (C)     click any element and leave a change request
@@ -22,7 +22,7 @@
 (() => {
   if (window.__htmemo) return;
   window.__htmemo = true;
-  const VERSION = '0.1.0';
+  const VERSION = '0.1.1';
   const SCRIPT = document.currentScript; // only available while this file first runs
   const boot = () => {
   const SRC = SCRIPT && SCRIPT.src;

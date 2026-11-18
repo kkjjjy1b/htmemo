@@ -200,7 +200,7 @@ with sync_playwright() as p:
         '</title>', '</title><script>window.HTMemo = { lang: "en", mobileBottom: 90, collapsed: true };</script><script src="../htmemo.js"></script>')
     page.route('**/demo/head.html', lambda r: r.fulfill(body=html2, content_type='text/html'))
     page.goto(BASE + '/demo/head.html'); page.wait_for_selector('.htm-dock')
-    check('works from <head> without defer', not errors and page.evaluate('HTMemo.version') == '0.1.0', errors)
+    check('works from <head> without defer', not errors and page.evaluate('HTMemo.version') == '0.1.1', errors)
     check('window.HTMemo collapsed option', page.eval_on_selector('.htm-dock', 'e => e.classList.contains("htm-min")'))
     ctx.close()
 
