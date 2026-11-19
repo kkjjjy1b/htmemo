@@ -28,7 +28,7 @@ Claude Code에서 아래 명령 두 줄을 실행합니다.
 1. **도구 붙이기.** 프로젝트에서 Claude에게 `index.html에 HTMemo 붙여 줘`처럼 말합니다. Claude가 `</body>` 바로 앞에 script 한 줄을 넣습니다.
 
    ```html
-   <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.0/htmemo.js" defer></script>
+   <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.1/htmemo.js" defer></script>
    ```
 
 2. **브라우저에서 리뷰하기.** 페이지를 열고 `C`(코멘트), `R`(영역 댓글), `E`(글자 수정), `T`(스타일)로 메모를 남깁니다.
@@ -80,7 +80,7 @@ Claude Code에서 아래 명령 두 줄을 실행합니다.
 설정이 필요하면 `HTMemo 붙일 때 모바일 하단 고정 바가 76px이야`처럼 Claude에게 말하면 됩니다. 설정값은 script 태그의 `data-*` 속성으로 들어갑니다.
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.0/htmemo.js"
+<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.1/htmemo.js"
         data-lang="ko" data-mobile-bottom="76" data-container=".container" defer></script>
 ```
 
@@ -105,7 +105,7 @@ Claude Code에서 아래 명령 두 줄을 실행합니다.
 | `editable` (`data-editable`) | 일반 글자 태그 | 글자 수정으로 고칠 수 있는 요소의 선택자입니다. |
 | `storageKey` (`data-storage-key`) | 페이지 경로 | 메모를 저장하는 키입니다. 여러 URL에 같은 키를 주면 목록 하나를 함께 씁니다. |
 
-섹션 이름은 요소에 `data-htmemo-section="가격"`처럼 직접 붙일 수 있습니다. 붙이지 않으면 가장 가까운 `section`, `header`, `footer`, `nav`, `aside`를 찾아 `aria-label`, 첫 제목, `id` 순으로 이름을 정합니다.
+섹션 이름은 요소에 `data-htmemo-section="가격"`처럼 직접 붙일 수 있습니다. 붙이지 않으면 가장 가까운 `section`, `header`, `footer`, `nav`, `aside`를 찾아 `aria-label`, `aria-labelledby`, 첫 제목, `id` 순으로 이름을 정합니다. `<br>`로 나눈 제목은 한 줄로 이어 읽습니다.
 
 ### 자바스크립트 API
 

@@ -200,8 +200,24 @@ with sync_playwright() as p:
         '</title>', '</title><script>window.HTMemo = { lang: "en", mobileBottom: 90, collapsed: true };</script><script src="../htmemo.js"></script>')
     page.route('**/demo/head.html', lambda r: r.fulfill(body=html2, content_type='text/html'))
     page.goto(BASE + '/demo/head.html'); page.wait_for_selector('.htm-dock')
-    check('works from <head> without defer', not errors and page.evaluate('HTMemo.version') == '1.0.0', errors)
+    check('works from <head> without defer', not errors and page.evaluate('HTMemo.version') == '1.0.1', errors)
     check('window.HTMemo collapsed option', page.eval_on_selector('.htm-dock', 'e => e.classList.contains("htm-min")'))
+    ctx.close()
+
+    # ── section names: multi-line headings and aria-labelledby ──
+    ctx, page, errors = new_page(browser)
+    html4 = """<!doctype html><html><head><meta charset="utf-8"><title>sec</title></head><body>
+<section id="s1"><h2>Plan your week<br>without the noise</h2><p id="p1">One</p></section>
+<section id="s2" aria-labelledby="t2"><h3>Small print</h3><p id="t2">Pricing <b>plans</b></p><p id="p2">Two</p></section>
+<script src="../htmemo.js" data-lang="en" defer></script></body></html>"""
+    page.route('**/demo/sections.html', lambda r: r.fulfill(body=html4, content_type='text/html'))
+    page.goto(BASE + '/demo/sections.html'); page.wait_for_selector('.htm-dock')
+    page.keyboard.press('c')
+    page.hover('#p1')
+    check('multi-line heading joined in section name', page.inner_text('.htm-hover b').startswith('Plan your week without'), page.inner_text('.htm-hover b'))
+    page.hover('#p2')
+    check('aria-labelledby names the section', page.inner_text('.htm-hover b').startswith('Pricing plans'), page.inner_text('.htm-hover b'))
+    check('no errors on section page', not errors, errors)
     ctx.close()
 
     # ── bookmarklet on a page without the script ──

@@ -28,7 +28,7 @@ If another marketplace you added also has a plugin named `htmemo`, use `/plugin 
 1. **Add the toolbar.** Ask Claude in your project, for example: `Add HTMemo to index.html`. Claude inserts one script line before `</body>`:
 
    ```html
-   <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.0/htmemo.js" defer></script>
+   <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.1/htmemo.js" defer></script>
    ```
 
 2. **Review in the browser.** Open the page and leave memos with `C` (comment), `R` (region), `E` (edit text) and `T` (style).
@@ -80,7 +80,7 @@ Paths (`…`) are CSS selectors. If "Applies to" is not "All screens", change on
 Ask Claude to add options when you need them, for example `HTMemo: the page has a 76px fixed bottom bar on mobile`. Options are `data-*` attributes on the script tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.0/htmemo.js"
+<script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.1/htmemo.js"
         data-lang="en" data-mobile-bottom="76" data-container=".container" defer></script>
 ```
 
@@ -105,7 +105,7 @@ or with a `window.HTMemo` object defined **before** the script loads:
 | `editable` (`data-editable`) | common text tags | Selector for elements that Edit text can change. |
 | `storageKey` (`data-storage-key`) | page path | Key for saving memos. Set the same key on several URLs to share one list. |
 
-Name a section yourself with `data-htmemo-section="Pricing"` on any element. Otherwise HTMemo uses the nearest `section`, `header`, `footer`, `nav` or `aside`, and its `aria-label`, first heading or `id`.
+Name a section yourself with `data-htmemo-section="Pricing"` on any element. Otherwise HTMemo uses the nearest `section`, `header`, `footer`, `nav` or `aside`, and its `aria-label`, `aria-labelledby`, first heading or `id`. A heading split with `<br>` is read as one line.
 
 ### JavaScript API
 

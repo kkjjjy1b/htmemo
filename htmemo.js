@@ -1,7 +1,7 @@
-/*! HTMemo v1.0.0 — leave review memos on any web page and copy them as an AI-ready prompt.
+/*! HTMemo v1.0.1 — leave review memos on any web page and copy them as an AI-ready prompt.
  *  https://github.com/kkjjjy1b/htmemo · MIT License
  *
- *  Install:  <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.0/htmemo.js" defer></script>
+ *  Install:  <script src="https://cdn.jsdelivr.net/gh/kkjjjy1b/htmemo@v1.0.1/htmemo.js" defer></script>
  *
  *  Modes (shortcut)
  *  - Comment (C)     click any element and leave a change request
@@ -22,7 +22,7 @@
 (() => {
   if (window.__htmemo) return;
   window.__htmemo = true;
-  const VERSION = '1.0.0';
+  const VERSION = '1.0.1';
   const SCRIPT = document.currentScript; // only available while this file first runs
   const boot = () => {
   const SRC = SCRIPT && SCRIPT.src;
@@ -294,19 +294,27 @@
   const quote = (s) => (LANG === 'ko' ? ` “${s}”` : ` "${s}"`);
 
   // Section = nearest landmark-like ancestor. Name priority:
-  // data-htmemo-section > aria-label > first heading > id > generic name.
+  // data-htmemo-section > aria-label > aria-labelledby > first heading > id > generic name.
+  // Multi-line headings (<br>) are joined with spaces.
   const SECTION_SEL = '[data-htmemo-section], section, header, footer, nav, aside';
+  function labelledBy(sec) {
+    const ids = (sec.getAttribute('aria-labelledby') || '').trim();
+    if (!ids) return '';
+    return ids.split(/\s+/).map((id) => { const n = document.getElementById(id); return n ? n.innerText || n.textContent : ''; }).join(' ').trim();
+  }
   function sectionOf(el) {
     const sec = el.closest(SECTION_SEL);
     if (!sec) return { el: document.body, name: L.sec.page };
     const custom = sec.getAttribute('data-htmemo-section') || sec.getAttribute('aria-label');
     if (custom) return { el: sec, name: clip(custom, 24) };
+    const named = labelledBy(sec);
+    if (named) return { el: sec, name: clip(named, 30) };
     const tag = sec.tagName.toLowerCase();
     if (tag === 'header' && !sec.closest('article, section')) return { el: sec, name: L.sec.header };
     if (tag === 'footer' && !sec.closest('article, section')) return { el: sec, name: L.sec.footer };
     if (tag === 'nav') return { el: sec, name: L.sec.nav };
     const h = sec.querySelector('h1, h2, h3');
-    if (h && h.innerText.trim()) return { el: sec, name: clip(h.innerText.split('\n')[0], 30) };
+    if (h && h.innerText.trim()) return { el: sec, name: clip(h.innerText, 30) };
     if (sec.id) return { el: sec, name: '#' + sec.id };
     return { el: sec, name: tag === 'aside' ? L.sec.aside : L.sec.section };
   }

@@ -1,6 +1,6 @@
 {
   "name": "htmemo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Review web pages with on-page memos (comments, region notes, text edits, style tweaks) and apply the copied prompt. Adds or removes the HTMemo toolbar and applies HTMemo change requests precisely.",
   "author": { "name": "kkjjjy1b" },
   "homepage": "https://github.com/kkjjjy1b/htmemo",
